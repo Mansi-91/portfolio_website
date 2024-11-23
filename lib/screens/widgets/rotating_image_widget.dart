@@ -1,0 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:portfolio_website/constants/colors.dart';
+
+import 'dart:math' as math;
+
+class RotatingImageContainer extends StatefulWidget {
+  const RotatingImageContainer({super.key});
+
+  @override
+  State<RotatingImageContainer> createState() => _RotatingImageContainerState();
+}
+
+class _RotatingImageContainerState extends State<RotatingImageContainer> {
+
+  bool isHovered=false;
+  @override
+  Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
+    return MouseRegion(
+      onEnter: (_)=> setState(()=>isHovered=true),
+      onExit: (_)=> setState(()=>isHovered=false),
+
+      child: AnimatedContainer(
+
+          duration: Duration(microseconds: 300),
+          transform: Matrix4.rotationZ(isHovered ?0:math.pi/36),
+
+        height: size.width*0.22,
+        width: size.width*0.22,
+
+        decoration: BoxDecoration(
+
+          image: DecorationImage(
+
+              fit: BoxFit.cover,
+              image: AssetImage('assets/whatsapp_image.jpeg')
+
+          ),
+
+          border: Border.all(color: AppColors.softBlue, width: 1.2),
+          borderRadius: BorderRadius.circular(20)
+
+
+        ),
+
+
+      ),
+
+
+
+    );
+  }
+}
